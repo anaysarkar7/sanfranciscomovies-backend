@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "sanfranciscomovies backend code using express & node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anaysarkar7/sanfranciscomovies-backend.git"
+  },
+  "author": "Anay Sarkar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anaysarkar7/sanfranciscomovies-backend/issues"
+  },
+  "homepage": "https://github.com/anaysarkar7/sanfranciscomovies-backend#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  }
+}
