@@ -1,6 +1,6 @@
 import express from "express";
+import autocompleteSearch from "../controllers/autocomplete.controller.js";
 const router = express.Router();
-import { autocompleteSearch } from "../controllers/autocomplete.js";
 
 router.post("/autocompleteSearch", autocompleteSearch);
 
