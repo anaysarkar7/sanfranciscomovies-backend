@@ -26,7 +26,6 @@ const forwardGeocodeMoviesLocation = async (moviesData) => {
       error: exception,
     });
   }
-  console.log(moviesData);
   return moviesData;
 };
 
@@ -43,7 +42,6 @@ const filterMoviesData = (moviesData, filter, inputText) => {
     });
   } else if (filter == MOVIE_LOCATION_FILTER) {
     moviesData = moviesData.filter((movie) => {
-      console.log(!movie.locations);
       return (
         movie.locations &&
         movie.locations.toLowerCase().includes(inputText.toLowerCase())
