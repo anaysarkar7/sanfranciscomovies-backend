@@ -1,54 +1,30 @@
-### Sanfranciscomovies Backend Code
-
-This source code would be deployed on a service such as heroku to serve the frontend
-
-Services Used indside : 
-1) ' Position Stack ' : for geocoding the locations of each movie and store in our DB
-
-#### API-endpoints
-
-backend-url =(https://sanfrancisomovies.herokuapp.com)
-
-##### 1) Autocomplete Search  
-        endpoint : 'backend-url/api/autocompleteSearch'
-        request body expected :
-            {
-                inputText:"some text",
-                filter:"your filter"
-            }
-            => filter can be : ' movie ' , ' locations ' ,' director '  
-
-        response :
-            {
-                result: [
-                            {
-                                movie 1
-                            },
-                            {
-                                movie 2
-                            },
-                            .
-                            .
-                            .
-                        ]
-            }
-            => result will be array of movie objects
-            => Movie Object example->
-                {
-                    "title": "Magnum Force",
-                    "release_year": "1973",
-                    "locations": "Golden Gate Bridge",
-                    "fun_facts": "With 23 miles of ladders and 300,000 rivets in each tower, the Golden Gate Bridge was the world's longest span when it opened in 1937.",
-                    "production_company": "The Malpaso Company",
-                    "distributor": "Warner Bros. Pictures",
-                    "director": "Ted Post",
-                    "writer": "John Milius",
-                    "actor_1": "Clint Eastwood",
-                    "actor_2": "Hal Holbrook",
-                    "actor_3": "Mitchell Ryan"
-                }
-##### 2) Add Movie List Into DB (not provided to client)
-        REMEMBER:
-            -> add movie into DB only after geocoding
-            -> if geocode not available then insert as it is
-
+# sanfranciscomovies-backend > README.md
+## Steps to get started 
+```
+1. clone this repo in your local machine "git clone https://github.com/anaysarkar7/sanfranciscomovies-backend.git"
+2. install all required dependencies "npm install" 
+3. setup your environment variables (go to .env.example file in your local directory of the project)
+        3.1. Create a position stack account at https://positionstack.com/
+        3.2. Get your API Access Key from https://positionstack.com/dashboard, copy that
+        3.3. paste it in value for "POSITION_STACK_API_ACCESS_KEY"
+        3.4. you can also change your port number as required in the "PORT" variable's value
+        3.5. change .env.example to .env
+4. start your server "npm run start"
+```
+## APIs
+##### 1. 
+```js
+endpoint : "/api/autocompleteSearch",
+request body : {
+    "inputText":"SOME_TEXT_HERE",//(required), can't be empty string
+    "filterType": "title" || "location" || "director", //(required), can't be any other value than the three mentioned
+}
+```
+```curl
+curl --location 'localhost:8000/api/autocompleteSearch' \
+--header 'Content-Type: application/json' \
+--data '{
+    "inputText":"ma",
+    "filterType":"title"
+}'  
+```
