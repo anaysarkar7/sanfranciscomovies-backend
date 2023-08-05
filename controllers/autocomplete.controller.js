@@ -5,15 +5,14 @@ import {
   MOVIE_TITLE_FILTER,
 } from "../constants/filter.constant.js";
 import getSFMoviesData from "../utils/datasf.util.js";
-import reverseGeocode from "../utils/positionstack.util.js";
+import forwardGeocode from "../utils/positionstack.util.js";
 
 const forwardGeocodeMoviesLocation = async (moviesData) => {
   const promiseList = moviesData.map(async (movie) => {
-    const reverseGeocodedData = await reverseGeocode(movie.locations);
-    if (reverseGeocodedData.length > 0) {
-      movie.latitude = reverseGeocodedData[0]?.latitude;
-      movie.longitude = reverseGeocodedData[0]?.longitude;
-    } else {
+    const forwardGeocodedData = await forwardGeocode(movie.locations);
+    if (forwardGeocodedData.length > 0) {
+      movie.latitude = forwardGeocodedData[0]?.latitude;
+      movie.longitude = forwardGeocodedData[0]?.longitude;
     }
     return movie;
   });
@@ -60,17 +59,15 @@ const filterMoviesData = (moviesData, filter, inputText) => {
 };
 
 const validateRequestData = (inputText, filter) => {
+  if (!inputText || inputText.length == 0) return false;
+  if (!filter || filter.length == 0) return false;
   if (
-    (!inputText || inputText.length == 0) &&
-    (!filter || filter.length == 0) &&
-    (filter != MOVIE_TITLE_FILTER ||
-      filter != MOVIE_LOCATION_FILTER ||
-      filter != MOVIE_DIRECTOR_FILTER)
-  ) {
+    filter != MOVIE_TITLE_FILTER &&
+    filter != MOVIE_LOCATION_FILTER &&
+    filter != MOVIE_DIRECTOR_FILTER
+  )
     return false;
-  } else {
-    return true;
-  }
+  return true;
 };
 
 const autocompleteSearch = async (req, res) => {
@@ -89,6 +86,7 @@ const autocompleteSearch = async (req, res) => {
     res.send({
       data: null,
       statusMessage: sfMoviesResponseData.message,
+      error: sfMoviesResponseData?.error,
     });
     return;
   }
